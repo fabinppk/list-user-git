@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <title>Página do Usuário</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+  </head>
+  <body>
+
+  </body>
+  <script src="/jquery.js"></script>
+  <script src="/scripts.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      var user = window.location.pathname.split("/").slice(-1);
+      $.ajax({
+          url: 'https://api.github.com/users/' + user,
+          method: 'GET',
+          contentType: 'application/json',
+          data: JSON.stringify({ name: user }),
+          success: function(response) {
+              console.log(response);
+              url = "/usuario/"+ response.login;
+              history.pushState("", "/", url);
+              $("body").html("");
+              $("body").append(
+                templateUsuarioPage(response.name, response.avatar_url, response.bio, response.login)
+              );
+          }
+      });
+    })
+  </script>
+</html>

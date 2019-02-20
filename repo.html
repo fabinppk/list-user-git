@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <title>Página do Repositório</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+  </head>
+  <body>
+
+  </body>
+  <script src="/jquery.js"></script>
+  <script src="/scripts.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      var user = window.location.pathname.split("/")[2];
+      var repo = window.location.pathname.split("/")[3];
+      $.ajax({
+          url: 'https://api.github.com/repos/' + user + '/' + repo,
+          method: 'GET',
+          contentType: 'application/json',
+          data: JSON.stringify({ name: user }),
+          success: function(response) {
+              console.log(response);
+              url = "/usuario/"+ response.owner.login + "/" + response.name;
+              history.pushState("", "/", url);
+              $("body").html("");
+              $("body").append(
+                templateRepoPage(response.name, response.description, response.stargazers_count, response.language, response.svn_url)
+              );
+          }
+      });
+    })
+  </script>
+</html>
