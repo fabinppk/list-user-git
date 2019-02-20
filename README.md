@@ -1,6 +1,6 @@
 # Listando usuários e repositórios do Github
 
-## DEMO: http://list-repo.s3-website-us-east-1.amazonaws.com
+## DEMO: https://list-user-github.herokuapp.com/
 
 ## Instalação <a name="instalacao"></a>
 
